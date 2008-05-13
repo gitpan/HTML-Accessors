@@ -1,17 +1,23 @@
 #!/usr/bin/perl
 
-# @(#)$Id: 10base.t 10 2008-02-28 00:58:29Z pjf $
+# @(#)$Id: 10base.t 18 2008-05-13 16:34:56Z pjf $
 
 use strict;
 use warnings;
 use English qw(-no_match_vars);
 use FindBin qw($Bin);
 use lib qq($Bin/../lib);
-use Test::More tests => 5;
+use Test::More;
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 10 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 18 $ =~ /\d+/gmx );
 
-BEGIN { use_ok q(HTML::Accessors) }
+if ($ENV{AUTOMATED_TESTING} and $OSNAME eq q(darwin)) {
+   plan tests => 1; use_ok( q(Test::More) ); exit 0;
+}
+
+plan tests => 5;
+
+use_ok q(HTML::Accessors);
 
 my $ref = HTML::Accessors->new();
 
