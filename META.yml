@@ -1,6 +1,6 @@
 ---
 name: HTML-Accessors
-version: 0.1.18
+version: 0.1.20
 author:
   - 'Peter Flanigan, C<< <Support at RoxSoft.co.uk> >>'
 abstract: Generate HTML elements
@@ -18,7 +18,7 @@ requires:
 provides:
   HTML::Accessors:
     file: lib/HTML/Accessors.pm
-    version: 0.1.18
+    version: 0.1.20
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.1.$Rev: 18 $
+    0.1.$Rev: 20 $
 
 Synopsis
        use HTML::Accessors;
@@ -18,15 +18,22 @@ Description
     Using the CGI module is undesirable in a Catalyst application (run from
     the development server) due go greediness issues over STDIN.
 
-    The returned tags are XHTML 1.1 compliant.
+    The returned tags are either XHTML 1.1 or HTML 4.01 compliant.
 
 Subroutines/Methods
   new
-    The constructor is inherited from Class::Accessor::Fast and takes no
-    options
+    The constructor defines one attribute:
+
+    content_type
+       Defaults to *application/xhtml+xml* which causes the generated tags
+       to conform to the XHTML standard. Setting it to *text/html* will
+       generate HTML compatible tags instead
 
   escape_html
     Expose "HTML::GenerateUtil::escape_html"
+
+  is_xml
+    Returns true if the returned tags will be XHTML
 
   popup_menu
     Returns the "<select>" element. The first option passed to "popup_menu"
@@ -53,8 +60,8 @@ Subroutines/Methods
     would return:
 
        <select name="my_field">
-          <option selected="selected">1E</option>
-          <option>2E</option>
+          <option selected="selected">1E<lt>/option>
+          <option>2E<lt>/option>
        </select>
 
   radio_group
@@ -146,11 +153,20 @@ Subroutines/Methods
     Implement the "DESTROY" method so that the "AUTOLOAD" method doesn't get
     called instead. Re-dispatches the call upstream
 
+  _arg_list
+    Returns a hash ref containing the passed parameter list. Enables methods
+    to be called with either a list or a hash ref as it's input parameters.
+    Makes copies as it goes so that you can change the contents without
+    altering the parameters if they were passed by reference
+
   _carp
     Call "Carp::carp". Don't load Carp if we don't have to
 
   _croak
     Call "Carp::croak". Don't load Carp if we don't have to
+
+  _hash_merge
+    Simplistic merging of two hashes
 
 Configuration and Environment
     None
