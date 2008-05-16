@@ -1,6 +1,6 @@
 package HTML::Accessors;
 
-# @(#)$Id: Accessors.pm 20 2008-05-16 13:08:30Z pjf $
+# @(#)$Id: Accessors.pm 22 2008-05-16 15:43:51Z pjf $
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use HTML::Tagset;
 use NEXT;
 use Readonly;
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 20 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 22 $ =~ /\d+/gmx );
 
 Readonly my $ATTRS => { content_type   => q(application/xhtml+xml) };
 Readonly my $INP   => { button         => q(button),
@@ -27,7 +27,8 @@ __PACKAGE__->mk_accessors( keys %{ $ATTRS } );
 
 sub new {
    my ($me, @rest) = @_;
-   my $self        = $me->_hash_merge( $ATTRS, $me->_arg_list( @rest ) );
+   my $args = $me->_arg_list( @rest );
+   my $self = $me->_hash_merge( $ATTRS, $args );
 
    return bless $self, ref $me || $me;
 }
@@ -161,7 +162,9 @@ sub DESTROY {
 sub _arg_list {
    my ($me, @rest) = @_;
 
-   return $rest[0] && ref $rest[0] eq q(HASH) ? { %{ $rest[0] } } : { @rest };
+   return {} unless ($rest[0]);
+
+   return ref $rest[0] eq q(HASH) ? { %{ $rest[0] } } : { @rest };
 }
 
 sub _carp { require Carp; goto &Carp::carp }
@@ -184,7 +187,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.1.$Rev: 20 $
+0.1.$Rev: 22 $
 
 =head1 Synopsis
 
