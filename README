@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.1.$Rev: 22 $
+    0.1.$Rev: 23 $
 
 Synopsis
        use HTML::Accessors;
@@ -20,14 +20,17 @@ Description
 
     The returned tags are either XHTML 1.1 or HTML 4.01 compliant.
 
-Subroutines/Methods
-  new
-    The constructor defines one attribute:
+Configuration and Environment
+    The constructor defines accessors and mutators for one attribute:
 
     content_type
        Defaults to *application/xhtml+xml* which causes the generated tags
        to conform to the XHTML standard. Setting it to *text/html* will
        generate HTML compatible tags instead
+
+Subroutines/Methods
+  new
+    Uses "_arg_list" to process the passed options
 
   escape_html
     Expose "HTML::GenerateUtil::escape_html"
@@ -167,9 +170,6 @@ Subroutines/Methods
 
   _hash_merge
     Simplistic merging of two hashes
-
-Configuration and Environment
-    None
 
 Diagnostics
     "Carp::carp" is called to issue a warning about undefined elements
