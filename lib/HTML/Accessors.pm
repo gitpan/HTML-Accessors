@@ -1,6 +1,6 @@
 package HTML::Accessors;
 
-# @(#)$Id: Accessors.pm 23 2008-05-23 20:12:24Z pjf $
+# @(#)$Id: Accessors.pm 31 2008-06-24 15:24:45Z pjf $
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use HTML::Tagset;
 use NEXT;
 use Readonly;
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 23 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 31 $ =~ /\d+/gmx );
 
 Readonly my $ATTRS => { content_type   => q(application/xhtml+xml) };
 Readonly my $INP   => { button         => q(button),
@@ -129,10 +129,10 @@ sub AUTOLOAD {
    else { $args = {}; $val = $rest[0] }
 
    if (exists $INP->{ $elem }) {
-      $args->{type}    = $INP->{ $elem };
-      $args->{value}   = delete $args->{default} if (defined $args->{default});
-      $args->{value} ||= $NUL;
-      $elem            = q(input);
+      $args->{type}  = $INP->{ $elem };
+      $args->{value} = delete $args->{default} if (defined $args->{default});
+      $args->{value} = $NUL unless (defined $args->{value});
+      $elem          = q(input);
    }
 
 ## no critic
@@ -187,7 +187,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.1.$Rev: 23 $
+0.1.$Rev: 31 $
 
 =head1 Synopsis
 
