@@ -1,6 +1,6 @@
 package HTML::Accessors;
 
-# @(#)$Id: Accessors.pm 31 2008-06-24 15:24:45Z pjf $
+# @(#)$Id: Accessors.pm 32 2008-06-25 12:39:09Z pjf $
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use HTML::Tagset;
 use NEXT;
 use Readonly;
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 31 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 32 $ =~ /\d+/gmx );
 
 Readonly my $ATTRS => { content_type   => q(application/xhtml+xml) };
 Readonly my $INP   => { button         => q(button),
@@ -187,7 +187,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.1.$Rev: 31 $
+0.1.$Rev: 32 $
 
 =head1 Synopsis
 
@@ -446,3 +446,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # mode: perl
 # tab-width: 3
 # End:
+
