@@ -1,6 +1,6 @@
 package HTML::Accessors;
 
-# @(#)$Id: Accessors.pm 32 2008-06-25 12:39:09Z pjf $
+# @(#)$Id: Accessors.pm 37 2008-09-06 15:08:16Z pjf $
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use HTML::Tagset;
 use NEXT;
 use Readonly;
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 32 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 37 $ =~ /\d+/gmx );
 
 Readonly my $ATTRS => { content_type   => q(application/xhtml+xml) };
 Readonly my $INP   => { button         => q(button),
@@ -167,9 +167,13 @@ sub _arg_list {
    return ref $rest[0] eq q(HASH) ? { %{ $rest[0] } } : { @rest };
 }
 
-sub _carp { require Carp; goto &Carp::carp }
+sub _carp {
+   require Carp; goto &Carp::carp;
+}
 
-sub _croak { require Carp; goto &Carp::croak }
+sub _croak {
+   require Carp; goto &Carp::croak;
+}
 
 sub _hash_merge {
    my ($me, $l, $r) = @_; return { %{ $l }, %{ $r || {} } };
@@ -187,7 +191,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.1.$Rev: 32 $
+0.1.$Rev: 37 $
 
 =head1 Synopsis
 
@@ -238,7 +242,7 @@ Returns true if the returned tags will be XHTML
 
 =head2 popup_menu
 
-Returns the C<E<lt>selectE<gt>> element. The first option passed to
+Returns the C<< <select> >> element. The first option passed to
 C<popup_menu> is either a hash ref or a list of key/value pairs. The keys are:
 
 =over 3
@@ -256,12 +260,12 @@ element in the C<values> array
 =item B<values>
 
 The key references an array ref whose values are used as the list of
-options returned in the body of the C<E<lt>selectE<gt>> element
+options returned in the body of the C<< <select> >> element
 
 =back
 
 The rest of the keys and values are passed as attributes to the
-C<E<lt>selectE<gt>> element. For example:
+C<< <select> >> element. For example:
 
    $ref = { default => 1, name => q(my_field), values => [ 1, 2 ] };
    $htag->popup_menu( $ref );
@@ -446,4 +450,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # mode: perl
 # tab-width: 3
 # End:
-
