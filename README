@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.1.$Rev: 37 $
+    0.1.$Rev: 42 $
 
 Synopsis
        use HTML::Accessors;
@@ -63,8 +63,8 @@ Subroutines/Methods
     would return:
 
        <select name="my_field">
-          <option selected="selected">1E<lt>/option>
-          <option>2E<lt>/option>
+          <option selected="selected">1</option>
+          <option>2</option>
        </select>
 
   radio_group
