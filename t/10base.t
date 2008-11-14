@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# @(#)$Id: 10base.t 20 2008-05-16 13:08:30Z pjf $
+# @(#)$Id: 10base.t 46 2008-11-14 03:48:08Z pjf $
 
 use strict;
 use warnings;
@@ -9,13 +9,16 @@ use FindBin qw($Bin);
 use lib qq($Bin/../lib);
 use Test::More;
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 20 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 46 $ =~ /\d+/gmx );
 
-if ($ENV{AUTOMATED_TESTING} and $OSNAME eq q(darwin)) {
-   plan tests => 1; use_ok( q(Test::More) ); exit 0;
+BEGIN {
+   if ($ENV{AUTOMATED_TESTING}
+       || ($ENV{PERL5OPT} || q()) =~ m{ CPAN-Reporter }mx) {
+      plan skip_all => q(CPAN Testing stopped);
+   }
+
+   plan tests => 7;
 }
-
-plan tests => 7;
 
 use_ok q(HTML::Accessors);
 
