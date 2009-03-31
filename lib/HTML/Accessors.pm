@@ -1,34 +1,32 @@
 package HTML::Accessors;
 
-# @(#)$Id: Accessors.pm 47 2008-11-14 03:50:14Z pjf $
+# @(#)$Id: Accessors.pm 53 2009-02-22 02:43:28Z pjf $
 
 use strict;
 use warnings;
-use base qw(Class::Accessor::Fast);
+use parent qw(Class::Accessor::Fast);
 use HTML::GenerateUtil qw(generate_tag :consts);
 use HTML::Tagset;
-use NEXT;
-use Readonly;
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 47 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 53 $ =~ /\d+/gmx );
 
-Readonly my $ATTRS => { content_type   => q(application/xhtml+xml) };
-Readonly my $INP   => { button         => q(button),
-                        checkbox       => q(checkbox),
-                        hidden         => q(hidden),
-                        image_button   => q(image),
-                        password_field => q(password),
-                        radio_button   => q(radio),
-                        submit         => q(submit),
-                        textfield      => q(text) };
-Readonly my $NUL   => q();
+my $ATTRS = { content_type   => q(application/xhtml+xml) };
+my $INP   = { button         => q(button),
+              checkbox       => q(checkbox),
+              hidden         => q(hidden),
+              image_button   => q(image),
+              password_field => q(password),
+              radio_button   => q(radio),
+              submit         => q(submit),
+              textfield      => q(text) };
+my $NUL   = q();
 
 __PACKAGE__->mk_accessors( keys %{ $ATTRS } );
 
 sub new {
-   my ($proto, @rest) = @_; my $args = $proto->_arg_list( @rest );
+   my ($self, @rest) = @_; my $args = _arg_list( @rest );
 
-   return bless $proto->_hash_merge( $ATTRS, $args ), ref $proto || $proto;
+   return bless _hash_merge( $ATTRS, $args ), ref $self || $self;
 }
 
 sub escape_html {
@@ -36,25 +34,25 @@ sub escape_html {
 }
 
 sub is_xml {
-   return shift->content_type eq q(application/xhtml+xml) ? 1 : 0;
+   my $self = shift;
+
+   return $self->content_type =~ m{ / (.*) xml \z }mx ? 1 : 0;
 }
 
 sub popup_menu {
-   my ($self, @rest) = @_;
-   my ($args, $def, $labels, $opt_attr, $options, $values);
+   my ($self, @rest) = @_; my $options; $rest[0] ||= $NUL;
 
-   $rest[0] ||= $NUL;
-   $args      = $self->_arg_list( @rest );
-   $def       = $args->{default} || $NUL; delete $args->{default};
-   $labels    = $args->{labels}  || {};   delete $args->{labels};
-   $values    = $args->{values}  || [];   delete $args->{values};
+   my $args   = _arg_list( @rest );
+   my $def    = $args->{default} || $NUL; delete $args->{default};
+   my $labels = $args->{labels}  || {};   delete $args->{labels};
+   my $values = $args->{values}  || [];   delete $args->{values};
 
-   for my $val (@{ $values }) {
-      $opt_attr = $val eq $def ? { selected => q(selected) } : {};
+   for my $val (grep { defined $_ } @{ $values }) {
+      my $opt_attr = $val eq $def
+                   ? { selected => $self->is_xml ? q(selected) : undef } : {};
 
       if (exists $labels->{ $val }) {
-         $opt_attr->{value} = $val;
-         $val = $labels->{ $val };
+         $opt_attr->{value} = $val; $val = $labels->{ $val };
       }
 
       $options .= generate_tag( q(option), $opt_attr, $val, GT_ADDNEWLINE );
@@ -67,29 +65,26 @@ sub popup_menu {
 }
 
 sub radio_group {
-   my ($self, @rest) = @_;
-   my ($args, $cols, $def, $html, $i, $inp, $inp_attr);
-   my ($labels, $mode, $name, $values);
+   my ($self, @rest) = @_; my ($html, $inp); $rest[0] ||= $NUL;
 
-   $rest[0] ||= $NUL;
-   $args      = $self->_arg_list( @rest );
-   $cols      = $args->{columns} || q(999999);
-   $def       = $args->{default} || 0;
-   $labels    = $args->{labels}  || {};
-   $name      = $args->{name}    || q(radio);
-   $values    = $args->{values}  || [];
-   $inp_attr  = { name => $name, type => q(radio) };
-   $mode      = $self->is_xml ? GT_CLOSETAG : 0;
-   $i         = 1;
+   my $args     = _arg_list( @rest );
+   my $cols     = $args->{columns} || q(999999);
+   my $def      = $args->{default} || 0;
+   my $labels   = $args->{labels}  || {};
+   my $name     = $args->{name}    || q(radio);
+   my $values   = $args->{values}  || [];
+   my $inp_attr = { name => $name, type => q(radio) };
+   my $mode     = $self->is_xml ? GT_CLOSETAG : 0;
+   my $i        = 1;
 
    $inp_attr->{onchange} = $args->{onchange} if ($args->{onchange});
 
    for my $val (@{ $values }) {
       $inp_attr->{value   } = $val;
       $inp_attr->{tabindex} = $i;
-      $inp_attr->{checked } = q(checked)
+      $inp_attr->{checked } = $self->is_xml ? q(checked) : undef
          if ($def !~ m{ \d+ }mx && $val eq $def);
-      $inp_attr->{checked } = q(checked)
+      $inp_attr->{checked } = $self->is_xml ? q(checked) : undef
          if ($def =~ m{ \d+ }mx && $val == $def);
       $inp   = generate_tag( q(input), $inp_attr, undef, $mode );
       $inp  .= $labels->{ $val } || $val;
@@ -107,7 +102,7 @@ sub radio_group {
 }
 
 sub scrolling_list {
-   my ($self, @rest) = @_; my $args = $self->_arg_list( @rest );
+   my ($self, @rest) = @_; my $args = _arg_list( @rest );
 
    $args->{multiple} = q(multiple);
    return $self->popup_menu( $args );
@@ -151,14 +146,12 @@ sub AUTOLOAD {
    return generate_tag( $elem, $args, $val, $mode );
 }
 
-sub DESTROY {
-   my ($self, @rest) = @_; return $self->NEXT::DESTROY( @rest );
-}
+sub DESTROY {}
 
-# Private methods
+# Private subroutines
 
 sub _arg_list {
-   my ($self, @rest) = @_;
+   my (@rest) = @_;
 
    return {} unless ($rest[0]);
 
@@ -169,12 +162,8 @@ sub _carp {
    require Carp; goto &Carp::carp;
 }
 
-sub _croak {
-   require Carp; goto &Carp::croak;
-}
-
 sub _hash_merge {
-   my ($self, $l, $r) = @_; return { %{ $l }, %{ $r || {} } };
+   my ($l, $r) = @_; return { %{ $l }, %{ $r || {} } };
 }
 
 1;
@@ -189,7 +178,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.1.$Rev: 47 $
+0.1.$Rev: 53 $
 
 =head1 Synopsis
 
@@ -389,10 +378,6 @@ without altering the parameters if they were passed by reference
 
 Call C<Carp::carp>. Don't load L<Carp> if we don't have to
 
-=head2 _croak
-
-Call C<Carp::croak>. Don't load L<Carp> if we don't have to
-
 =head2 _hash_merge
 
 Simplistic merging of two hashes
@@ -407,13 +392,11 @@ C<Carp::carp> is called to issue a warning about undefined elements
 
 =item L<Class::Accessor::Fast>
 
+=item L<Class::C3>
+
 =item L<HTML::GenerateUtil>
 
 =item L<HTML::Tagset>
-
-=item L<NEXT>
-
-=item L<Readonly>
 
 =back
 

@@ -1,5 +1,14 @@
 Revision history for HTML::Accessors
 
+0.1.53   22/02/2009
+         - Dropped use of NEXT
+         - Dropped use of Readonly
+         - Now generates just selected and checked in HTML mode
+
+0.1.50   04/12/2008
+         - Made is_xml test match more content types
+         - Added check for defined values in list passed to popup_menu
+
 0.1.47   14/11/2008
          - New approach to CPAN testing
 

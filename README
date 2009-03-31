@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.1.$Rev: 47 $
+    0.1.$Rev: 53 $
 
 Synopsis
        use HTML::Accessors;
@@ -165,9 +165,6 @@ Subroutines/Methods
   _carp
     Call "Carp::carp". Don't load Carp if we don't have to
 
-  _croak
-    Call "Carp::croak". Don't load Carp if we don't have to
-
   _hash_merge
     Simplistic merging of two hashes
 
@@ -176,10 +173,9 @@ Diagnostics
 
 Dependencies
     Class::Accessor::Fast
+    Class::C3
     HTML::GenerateUtil
     HTML::Tagset
-    NEXT
-    Readonly
 
 Incompatibilities
     There are no known incompatibilities in this module

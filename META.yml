@@ -1,6 +1,6 @@
 ---
 name: HTML-Accessors
-version: 0.1.47
+version: 0.1.53
 author:
   - 'Peter Flanigan, C<< <Support at RoxSoft.co.uk> >>'
 abstract: Generate HTML elements
@@ -14,8 +14,7 @@ requires:
   Class::Accessor::Fast: 0.31
   HTML::GenerateUtil: 1.08
   HTML::Tagset: 3.10
-  NEXT: 0.60
-  Readonly: 1.03
+  parent: 0.221
   perl: 5.008
   version: 0.74
 build_requires:
@@ -25,8 +24,8 @@ build_requires:
 provides:
   HTML::Accessors:
     file: lib/HTML/Accessors.pm
-    version: 0.1.47
-generated_by: Module::Build version 0.3
+    version: 0.1.53
+generated_by: Module::Build version 0.31
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
