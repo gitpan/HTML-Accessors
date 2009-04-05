@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.1.$Rev: 53 $
+    0.1.$Rev: 56 $
 
 Synopsis
        use HTML::Accessors;

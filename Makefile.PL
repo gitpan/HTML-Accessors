@@ -19,6 +19,7 @@ WriteMakefile
                            'Test::Harness' => '2.64',
                            'Test::More' => '0.74',
                            'Test::Pod' => '1.14',
+                           'Test::Pod::Coverage' => '1.08',
                            'parent' => '0.221',
                            'version' => '0.74'
                          },
