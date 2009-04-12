@@ -1,6 +1,6 @@
 package HTML::Accessors;
 
-# @(#)$Id: Accessors.pm 56 2009-04-05 13:37:06Z pjf $
+# @(#)$Id: Accessors.pm 61 2009-04-12 17:37:42Z pjf $
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use parent qw(Class::Accessor::Fast);
 use HTML::GenerateUtil qw(generate_tag :consts);
 use HTML::Tagset;
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 56 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 61 $ =~ /\d+/gmx );
 
 my $ATTRS = { content_type   => q(application/xhtml+xml) };
 my $INP   = { button         => q(button),
@@ -178,7 +178,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.1.$Rev: 56 $
+0.1.$Rev: 61 $
 
 =head1 Synopsis
 
@@ -431,4 +431,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # mode: perl
 # tab-width: 3
 # End:
-
