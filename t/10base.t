@@ -1,21 +1,18 @@
-#!/usr/bin/perl
-
-# @(#)$Id: 10base.t 52 2009-01-28 03:16:02Z pjf $
+# @(#)$Id: 10base.t 65 2009-06-12 13:01:37Z pjf $
 
 use strict;
 use warnings;
-use English qw(-no_match_vars);
+use version; our $VERSION = qv( sprintf '0.2.%d', q$Rev: 65 $ =~ /\d+/gmx );
 use File::Spec::Functions;
-use FindBin ();
-use lib catfile( $FindBin::Bin, updir, q(lib) );
-use Test::More;
+use FindBin qw( $Bin );
+use lib catdir( $Bin, updir, q(lib) );
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 52 $ =~ /\d+/gmx );
+use English qw( -no_match_vars );
+use Test::More;
 
 BEGIN {
    if ($ENV{AUTOMATED_TESTING} || $ENV{PERL_CR_SMOKER_CURRENT}
-       || ($ENV{PERL5OPT} || q()) =~ m{ CPAN-Reporter }mx
-       || ($ENV{PERL5_CPANPLUS_IS_RUNNING} && $ENV{PERL5_CPAN_IS_RUNNING})) {
+       || ($ENV{PERL5OPT} || q()) =~ m{ CPAN-Reporter }mx) {
       plan skip_all => q(CPAN Testing stopped);
    }
 
@@ -71,3 +68,7 @@ ok ( $ref->popup_menu( $args )
               <option \s+ selected>1</option> \s+
               <option \s+ >2</option> \s+ </select> }mx, q(html popup_menu) );
 
+# Local Variables:
+# mode: perl
+# tab-width: 3
+# End:
