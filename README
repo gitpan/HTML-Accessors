@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.2.$Rev: 68 $
+    0.2.$Rev: 77 $
 
 Synopsis
        use HTML::Accessors;
@@ -162,14 +162,11 @@ Subroutines/Methods
     Makes copies as it goes so that you can change the contents without
     altering the parameters if they were passed by reference
 
-  _carp
-    Call "Carp::carp". Don't load Carp if we don't have to
-
   _hash_merge
     Simplistic merging of two hashes
 
 Diagnostics
-    "Carp::carp" is called to issue a warning about undefined elements
+    "carp" in Carp is called to issue a warning about undefined elements
 
 Dependencies
     Class::Accessor::Fast
