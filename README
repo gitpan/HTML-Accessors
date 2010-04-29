@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.2.$Rev: 77 $
+    0.3.$Rev: 85 $
 
 Synopsis
        use HTML::Accessors;
@@ -79,6 +79,9 @@ Subroutines/Methods
 
     default
        Determines which of the radio box will be selected by default
+
+    label_class
+       Class of the labels generated for each button
 
     labels
        Display these labels next to each button. This is a hash ref with a

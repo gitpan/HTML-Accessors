@@ -1,8 +1,8 @@
-# @(#)$Id: 10base.t 76 2009-06-27 16:29:51Z pjf $
+# @(#)$Id: 10base.t 85 2010-04-29 11:37:05Z pjf $
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.2.%d', q$Rev: 76 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 85 $ =~ /\d+/gmx );
 use File::Spec::Functions;
 use FindBin qw( $Bin );
 use lib catdir( $Bin, updir, q(lib) );
@@ -46,9 +46,10 @@ $args = { columns => 2,
           values  => [ 1, 2, 3, 4 ] };
 
 ok( $ref->radio_group( $args )
-    =~ m{ \A <label> \s+ <input \s+ checked="checked" \s+ tabindex="1"
+    =~ m{ \A <input \s+ checked="checked" \s+ tabindex="1"
           \s+ value="1" \s+ name="my_field" \s+ type="radio" \s+
-          />Button \s+ One</label> }mx, q(radio_group) );
+          /><label \s+ class="radio_group_label"> \s+ Button \s+
+          One</label> }mx, q(radio_group) );
 
 $ref = HTML::Accessors->new( content_type => q(text/html) );
 
@@ -57,9 +58,10 @@ ok( $ref->textfield( { default => q(default value), name => q(my_field) } )
     q(textfield-html) );
 
 ok( $ref->radio_group( $args )
-    =~ m{ \A <label> \s+ <input \s+ checked \s+ tabindex="1"
+    =~ m{ \A <input \s+ checked \s+ tabindex="1"
           \s+ value="1" \s+ name="my_field" \s+ type="radio"
-          >Button \s+ One</label> }mx, q(radio_group-html) );
+          ><label \s+ class="radio_group_label"> \s+ Button \s+
+          One</label> }mx, q(radio_group-html) );
 
 $args = { default => 1, name => q(my_field), values => [ 1, 2 ] };
 

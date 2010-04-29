@@ -1,15 +1,25 @@
 ---
-name: HTML-Accessors
-version: 0.2.77
+abstract: 'Generate HTML elements'
 author:
   - 'Peter Flanigan, C<< <Support at RoxSoft.co.uk> >>'
-abstract: Generate HTML elements
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
+build_requires:
+  Test::More: 0.74
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
+  Module::Build: 0.36
   version: 0.74
+generated_by: 'Module::Build version 0.3607'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: HTML-Accessors
+no_index:
+  directory:
+    - t
+provides:
+  HTML::Accessors:
+    file: lib/HTML/Accessors.pm
+    version: v0.3.85
 requires:
   Class::Accessor::Fast: 0.31
   HTML::GenerateUtil: 1.08
@@ -17,13 +27,6 @@ requires:
   parent: 0.221
   perl: 5.008
   version: 0.74
-build_requires:
-  Test::More: 0.74
-provides:
-  HTML::Accessors:
-    file: lib/HTML/Accessors.pm
-    version: 0.2.77
-generated_by: Module::Build version 0.31
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+resources:
+  license: http://dev.perl.org/licenses/
+version: v0.3.85

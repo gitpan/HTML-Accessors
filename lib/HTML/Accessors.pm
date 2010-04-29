@@ -1,10 +1,10 @@
-# @(#)$Id: Accessors.pm 77 2009-06-27 16:30:22Z pjf $
+# @(#)$Id: Accessors.pm 85 2010-04-29 11:37:05Z pjf $
 
 package HTML::Accessors;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.2.%d', q$Rev: 77 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 85 $ =~ /\d+/gmx );
 use parent qw(Class::Accessor::Fast);
 
 use Carp;
@@ -68,15 +68,16 @@ sub popup_menu {
 sub radio_group {
    my ($self, @rest) = @_; my ($html, $inp); $rest[0] ||= $NUL;
 
-   my $args     = _arg_list( @rest );
-   my $cols     = $args->{columns} || q(999999);
-   my $def      = $args->{default} || 0;
-   my $labels   = $args->{labels } || {};
-   my $name     = $args->{name   } || q(radio);
-   my $values   = $args->{values } || [];
-   my $inp_attr = { name => $name, type => q(radio) };
-   my $mode     = $self->is_xml ? GT_CLOSETAG : 0;
-   my $i        = 1;
+   my $args        = _arg_list( @rest );
+   my $cols        = $args->{columns    } || q(999999);
+   my $def         = $args->{default    } || 0;
+   my $labels      = $args->{labels     } || {};
+   my $label_class = $args->{label_class} || q(radio_group_label);
+   my $name        = $args->{name       } || q(radio);
+   my $values      = $args->{values     } || [];
+   my $inp_attr    = { name => $name, type => q(radio) };
+   my $mode        = $self->is_xml ? GT_CLOSETAG : 0;
+   my $i           = 1;
 
    $inp_attr->{onchange} = $args->{onchange} if ($args->{onchange});
 
@@ -87,9 +88,9 @@ sub radio_group {
          if ($def !~ m{ \d+ }mx && $val eq $def);
       $inp_attr->{checked } = $self->is_xml ? q(checked) : undef
          if ($def =~ m{ \d+ }mx && $val == $def);
-      $inp   = generate_tag( q(input), $inp_attr, undef, $mode );
-      $inp  .= $labels->{ $val } || $val;
-      $html .= generate_tag( q(label), undef, "\n".$inp, GT_ADDNEWLINE );
+      $html .= generate_tag( q(input), $inp_attr, undef, $mode );
+      $html .= generate_tag( q(label), { class => $label_class },
+                             "\n".($labels->{ $val } || $val), GT_ADDNEWLINE );
 
       if ($cols && $i % $cols == 0) {
          $html .= generate_tag( q(br), undef, undef, $mode );
@@ -175,7 +176,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.2.$Rev: 77 $
+0.3.$Rev: 85 $
 
 =head1 Synopsis
 
@@ -278,6 +279,10 @@ zero then a list of radio buttons without breaks is generated
 =item B<default>
 
 Determines which of the radio box will be selected by default
+
+=item B<label_class>
+
+Class of the labels generated for each button
 
 =item B<labels>
 
