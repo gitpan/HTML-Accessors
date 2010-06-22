@@ -1,8 +1,8 @@
-# @(#)$Id: Build.PL 85 2010-04-29 11:37:05Z pjf $
+# @(#)$Id: Build.PL 86 2010-06-22 17:43:28Z pjf $
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 85 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 86 $ =~ /\d+/gmx );
 
 use Module::Build;
 

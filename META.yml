@@ -19,7 +19,7 @@ no_index:
 provides:
   HTML::Accessors:
     file: lib/HTML/Accessors.pm
-    version: v0.3.85
+    version: 0.3.87
 requires:
   Class::Accessor::Fast: 0.31
   HTML::GenerateUtil: 1.08
@@ -29,4 +29,4 @@ requires:
   version: 0.74
 resources:
   license: http://dev.perl.org/licenses/
-version: v0.3.85
+version: 0.3.87
