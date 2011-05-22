@@ -1,10 +1,10 @@
-# @(#)$Id: Accessors.pm 87 2010-06-22 18:31:23Z pjf $
+# @(#)$Id: Accessors.pm 104 2011-05-22 16:01:59Z pjf $
 
 package HTML::Accessors;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 87 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.4.%d', q$Rev: 104 $ =~ /\d+/gmx );
 use parent qw(Class::Accessor::Fast);
 
 use Carp;
@@ -12,8 +12,7 @@ use HTML::GenerateUtil qw(generate_tag :consts);
 use HTML::Tagset;
 
 my $ATTRS = { content_type   => q(application/xhtml+xml) };
-my $INP   = { button         => q(button),
-              checkbox       => q(checkbox),
+my $INP   = { checkbox       => q(checkbox),
               hidden         => q(hidden),
               image_button   => q(image),
               password_field => q(password),
@@ -41,14 +40,14 @@ sub is_xml {
 }
 
 sub popup_menu {
-   my ($self, @rest) = @_; my $options; $rest[0] ||= $NUL;
+   my ($self, @rest) = @_; my $options; $rest[ 0 ] ||= $NUL;
 
    my $args   = _arg_list( @rest );
    my $def    = $args->{default} || $NUL; delete $args->{default};
-   my $labels = $args->{labels}  || {};   delete $args->{labels};
-   my $values = $args->{values}  || [];   delete $args->{values};
+   my $labels = $args->{labels}  || {};   delete $args->{labels };
+   my $values = $args->{values}  || [];   delete $args->{values };
 
-   for my $val (grep { defined $_ } @{ $values }) {
+   for my $val (grep { defined } @{ $values }) {
       my $opt_attr = $val eq $def
                    ? { selected => $self->is_xml ? q(selected) : undef } : {};
 
@@ -66,7 +65,7 @@ sub popup_menu {
 }
 
 sub radio_group {
-   my ($self, @rest) = @_; my ($html, $inp); $rest[0] ||= $NUL;
+   my ($self, @rest) = @_; my ($html, $inp); $rest[ 0 ] ||= $NUL;
 
    my $args        = _arg_list( @rest );
    my $cols        = $args->{columns    } || q(999999);
@@ -79,23 +78,20 @@ sub radio_group {
    my $mode        = $self->is_xml ? GT_CLOSETAG : 0;
    my $i           = 1;
 
-   $inp_attr->{onchange} = $args->{onchange} if ($args->{onchange});
+   $args->{onchange} and $inp_attr->{onchange} = $args->{onchange};
 
    for my $val (@{ $values }) {
       $inp_attr->{value   } = $val;
       $inp_attr->{tabindex} = $i;
-      $inp_attr->{checked } = $self->is_xml ? q(checked) : undef
-         if ($def !~ m{ \d+ }mx && $val eq $def);
-      $inp_attr->{checked } = $self->is_xml ? q(checked) : undef
-         if ($def =~ m{ \d+ }mx && $val == $def);
+      $def !~ m{ \d+ }mx and $val eq $def
+         and $inp_attr->{checked } = $self->is_xml ? q(checked) : undef;
+      $def =~ m{ \d+ }mx and $val == $def
+         and $inp_attr->{checked } = $self->is_xml ? q(checked) : undef;
       $html .= generate_tag( q(input), $inp_attr, undef, $mode );
       $html .= generate_tag( q(label), { class => $label_class },
                              "\n".($labels->{ $val } || $val), GT_ADDNEWLINE );
-
-      if ($cols && $i % $cols == 0) {
-         $html .= generate_tag( q(br), undef, undef, $mode );
-      }
-
+      $cols and $i % $cols == 0
+         and $html .= generate_tag( q(br), undef, undef, $mode );
       delete $inp_attr->{checked};
       $i++;
    }
@@ -110,38 +106,31 @@ sub scrolling_list {
    return $self->popup_menu( $args );
 }
 
-## no critic
-sub AUTOLOAD {
-## critic
-   my ($self, @rest) = @_; my ($args, $elem, $mode, $val);
+sub AUTOLOAD { ## no critic
+   my ($self, @rest) = @_;
 
-   ($elem = $HTML::Accessors::AUTOLOAD) =~ s{ .* :: }{}mx;
-   $mode  = GT_ADDNEWLINE;
+   my $args = {}; my $mode = GT_ADDNEWLINE; my $val = $rest[ 0 ];
 
-   if ($rest[0] && ref $rest[0] eq q(HASH)) {
-      $args = { %{ $rest[0] } }; $val = $rest[1];
+  (my $elem = lc $HTML::Accessors::AUTOLOAD) =~ s{ .* :: }{}mx;
+
+   if ($rest[ 0 ] and ref $rest[ 0 ] eq q(HASH)) {
+      $args = { %{ $rest[ 0 ] } }; $val = $rest[ 1 ];
    }
-   else { $args = {}; $val = $rest[0] }
 
    if (exists $INP->{ $elem }) {
-      $args->{type}  = $INP->{ $elem };
-      $args->{value} = delete $args->{default} if (defined $args->{default});
-      $args->{value} = $NUL unless (defined $args->{value});
-      $elem          = q(input);
+      $args->{type} = $INP->{ $elem };
+      defined $args->{default} and $args->{value} = delete $args->{default};
+      defined $args->{value  } or  $args->{value} = $NUL;
+      $elem = q(input);
    }
 
-## no critic
-   unless ($HTML::Tagset::isKnown{ $elem }) {
-## critic
-      carp "Unknown element $elem";
-      return $self->NEXT::AUTOLOAD( @rest );
+   unless ($HTML::Tagset::isKnown{ $elem }) { ## no critic
+      carp "Unknown element $elem"; return;
    }
 
    $val ||= defined $args->{default} ? delete $args->{default} : $NUL;
 
-## no critic
-   if ($HTML::Tagset::emptyElement{ $elem }) {
-## critic
+   if ($HTML::Tagset::emptyElement{ $elem }) { ## no critic
       $val = undef; $mode = $self->is_xml ? GT_CLOSETAG : 0;
    }
 
@@ -153,15 +142,11 @@ sub DESTROY {}
 # Private subroutines
 
 sub _arg_list {
-   my (@rest) = @_;
-
-   return {} unless ($rest[0]);
-
-   return ref $rest[0] eq q(HASH) ? { %{ $rest[0] } } : { @rest };
+   return $_[ 0 ] ? ref $_[ 0 ] eq q(HASH) ? { %{ $_[ 0 ] } } : { @_ } : {};
 }
 
 sub _hash_merge {
-   my ($l, $r) = @_; return { %{ $l }, %{ $r || {} } };
+   return { %{ $_[ 0 ] }, %{ $_[ 1 ] || {} } };
 }
 
 1;
@@ -176,16 +161,16 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.3.$Rev: 87 $
+0.4.$Rev: 104 $
 
 =head1 Synopsis
 
    use HTML::Accessors;
 
-   my $htag = HTML::Accessors->new();
+   my $my_obj = HTML::Accessors->new();
 
    # Create an anchor element
-   $anchor = $htag->a( { href => 'http://...' }, 'This is a link' );
+   $anchor = $my_obj->a( { href => 'http://...' }, 'This is a link' );
 
 =head1 Description
 
@@ -203,7 +188,7 @@ The constructor defines accessors and mutators for one attribute:
 
 =over 3
 
-=item content_type
+=item B<content_type>
 
 Defaults to I<application/xhtml+xml> which causes the generated tags
 to conform to the XHTML standard. Setting it to I<text/html> will
@@ -215,17 +200,26 @@ generate HTML compatible tags instead
 
 =head2 new
 
-Uses C<_arg_list> to process the passed options
+   my $my_obj = HTML::Accessors->new( content_type => q(application/xhtml+xml) );
+
+Uses L</_arg_list> to process the passed options
 
 =head2 escape_html
 
-Expose C<HTML::GenerateUtil::escape_html>
+   my $escaped_html = $my_obj->escape_html( $unescaped_html );
+
+Expose the method L<escape_html|HTML::GenerateUtil/FUNCTIONS>
 
 =head2 is_xml
 
-Returns true if the returned tags will be XHTML
+   my $bool = $my_obj->is_xml;
+
+Returns true if the returned tags will be XHTML. Matches the string I<.xml>
+at the end of the I<content_type>
 
 =head2 popup_menu
+
+   my $html = $my_obj->popup_menu( default => $value, labels => {}, values => [] );
 
 Returns the C<< <select> >> element. The first option passed to
 C<popup_menu> is either a hash ref or a list of key/value pairs. The keys are:
@@ -253,7 +247,7 @@ The rest of the keys and values are passed as attributes to the
 C<< <select> >> element. For example:
 
    $ref = { default => 1, name => q(my_field), values => [ 1, 2 ] };
-   $htag->popup_menu( $ref );
+   $my_obj->popup_menu( $ref );
 
 would return:
 
@@ -315,7 +309,7 @@ For example:
                          4 => q(Button Four), },
             name    => q(my_field),
             values  => [ 1, 2, 3, 4 ] };
-   $htag->radio_group( $ref );
+   $my_obj->radio_group( $ref );
 
 would return:
 
@@ -355,7 +349,7 @@ If the requested element exists in the hard coded list of input
 elements, then the element is set to C<input> and the mapped value
 used as the type attribute in the call to C<generate_tag>. For example;
 
-   $htag->textfield( { default => q(default value), name => q(my_field) } );
+   $my_obj->textfield( { default => q(default value), name => q(my_field) } );
 
 would return
 
@@ -364,10 +358,13 @@ would return
 The list of input elements contains; button, checkbox, hidden,
 image_button, password_field, radio_button, submit, and textfield
 
+Carp and return C<undef> if the element does not exist in
+L<isKnown|HTML::Tagset/isKnown>
+
 =head2 DESTROY
 
 Implement the C<DESTROY> method so that the C<AUTOLOAD> method doesn't get
-called instead. Re-dispatches the call upstream
+called instead
 
 =head2 _arg_list
 
@@ -382,7 +379,7 @@ Simplistic merging of two hashes
 
 =head1 Diagnostics
 
-L<Carp/carp> is called to issue a warning about undefined elements
+L<Carp|Carp/carp> is called to issue a warning about undefined elements
 
 =head1 Dependencies
 
@@ -412,9 +409,13 @@ Patches are welcome
 
 Peter Flanigan, C<< <Support at RoxSoft.co.uk> >>
 
+=head1 Acknowledgements
+
+Larry Wall - For the Perl programming language
+
 =head1 License and Copyright
 
-Copyright (c) 2008 Peter Flanigan. All rights reserved.
+Copyright (c) 2011 Peter Flanigan. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. See L<perlartistic>.

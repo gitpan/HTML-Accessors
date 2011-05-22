@@ -1,27 +1,32 @@
-# @(#)$Id: 10base.t 85 2010-04-29 11:37:05Z pjf $
+# @(#)$Id: 10base.t 104 2011-05-22 16:01:59Z pjf $
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 85 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.4.%d', q$Rev: 104 $ =~ /\d+/gmx );
 use File::Spec::Functions;
 use FindBin qw( $Bin );
 use lib catdir( $Bin, updir, q(lib) );
 
 use English qw( -no_match_vars );
+use Module::Build;
 use Test::More;
 
 BEGIN {
-   if ($ENV{AUTOMATED_TESTING}  || $ENV{PERL_CR_SMOKER_CURRENT} ||
-       $ENV{PERL5_MINISMOKEBOX} || $ENV{PERL5_YACSMOKE_BASE}) {
-      plan skip_all => q(CPAN Testing stopped);
-   }
+   my $current = eval { Module::Build->current };
 
-   plan tests => 8;
+   $current and $current->notes->{stop_tests}
+            and plan skip_all => $current->notes->{stop_tests};
+
+   plan tests => 10;
 }
 
 use_ok q(HTML::Accessors);
 
-my $ref = HTML::Accessors->new();
+my $ref  = HTML::Accessors->new();
+
+ok( (not defined $ref->DESTROY), 'Call DESTROY' );
+
+ok( (not defined $ref->not_likely), 'Unknown element' );
 
 ok( $ref->a() =~ m{ <a .* > .* </a> }mx, q(anchor) );
 

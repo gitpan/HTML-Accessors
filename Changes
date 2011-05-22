@@ -1,5 +1,13 @@
 Revision history for HTML::Accessors
 
+0.4.104  2011-05-22
+         - Updated POD
+         - Fixed bug in AUTOLOAD propagation
+         - Suppressed dcollins CPAN testing
+         - Stopped mapping button element to input elements of type button
+         - Moved boilerplate M::B subclass code to inc/Bob.pm
+         - Suppressed Konig CPAN testing again
+
 0.3.87   2010-06-22
          - Patched broken version number handling in Module::Build
 

@@ -1,32 +1,26 @@
-# @(#)$Id: Build.PL 86 2010-06-22 17:43:28Z pjf $
+# @(#)$Id: Build.PL 98 2011-03-24 20:24:57Z pjf $
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 86 $ =~ /\d+/gmx );
+use inc::Bob; # Module::Build subclass
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 98 $ =~ /\d+/gmx );
 
-use Module::Build;
-
-my $build = Module::Build->new
-   ( add_to_cleanup     => [ q(Debian_CPANTS.txt), q(HTML-Accessors-*),
-                             map { ( '*/' x $_ ) . '*~' } 0..5 ],
-     build_requires     => { 'Test::More' => q(0.74) },
-     configure_requires => { 'version'    => q(0.74) },
-     create_readme      => 1,
-     create_packlist    => 0,
-     dist_version_from  => q(lib/HTML/Accessors.pm),
-     license            => q(perl),
-     module_name        => q(HTML::Accessors),
-     no_index           => { directory => [ q(t) ] },
-     requires           => {
-        'perl'                  => q(5.008),
-        'parent'                => q(0.221),
-        'version'               => q(0.74),
-        'Class::Accessor::Fast' => q(0.31),
-        'HTML::GenerateUtil'    => q(1.08),
-        'HTML::Tagset'          => q(3.10) },
-     sign               => 1, );
-
-$build->create_build_script();
+Bob->new( {
+   stop_tests => 1,
+   license    => q(perl),
+   module     => q(HTML::Accessors),
+   home_page  => q(http://www.roxsoft.co.uk),
+   requires   => {
+      'perl'                  => q(5.008),
+      'parent'                => q(0.221),
+      'version'               => q(0.74),
+      'Class::Accessor::Fast' => q(0.31),
+      'HTML::GenerateUtil'    => q(1.08),
+      'HTML::Tagset'          => q(3.10) },
+   configure_requires => { 'Module::Build' => 0.32,
+                           'version'       => 0.74, },
+   build_requires     => { 'Test::More'    => 0.74, },
+} )->create_build_script; # Goal!
 
 # Local Variables:
 # mode: perl

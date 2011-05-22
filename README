@@ -2,15 +2,15 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.3.$Rev: 87 $
+    0.4.$Rev: 104 $
 
 Synopsis
        use HTML::Accessors;
 
-       my $htag = HTML::Accessors->new();
+       my $my_obj = HTML::Accessors->new();
 
        # Create an anchor element
-       $anchor = $htag->a( { href => 'http://...' }, 'This is a link' );
+       $anchor = $my_obj->a( { href => 'http://...' }, 'This is a link' );
 
 Description
     Uses HTML::GenerateUtil to create an autoload method for each of the
@@ -30,15 +30,24 @@ Configuration and Environment
 
 Subroutines/Methods
   new
+       my $my_obj = HTML::Accessors->new( content_type => q(application/xhtml+xml) );
+
     Uses "_arg_list" to process the passed options
 
   escape_html
-    Expose "HTML::GenerateUtil::escape_html"
+       my $escaped_html = $my_obj->escape_html( $unescaped_html );
+
+    Expose the method escape_html
 
   is_xml
-    Returns true if the returned tags will be XHTML
+       my $bool = $my_obj->is_xml;
+
+    Returns true if the returned tags will be XHTML. Matches the string
+    *.xml* at the end of the *content_type*
 
   popup_menu
+       my $html = $my_obj->popup_menu( default => $value, labels => {}, values => [] );
+
     Returns the "<select>" element. The first option passed to "popup_menu"
     is either a hash ref or a list of key/value pairs. The keys are:
 
@@ -58,7 +67,7 @@ Subroutines/Methods
     "<select>" element. For example:
 
        $ref = { default => 1, name => q(my_field), values => [ 1, 2 ] };
-       $htag->popup_menu( $ref );
+       $my_obj->popup_menu( $ref );
 
     would return:
 
@@ -108,7 +117,7 @@ Subroutines/Methods
                              4 => q(Button Four), },
                 name    => q(my_field),
                 values  => [ 1, 2, 3, 4 ] };
-       $htag->radio_group( $ref );
+       $my_obj->radio_group( $ref );
 
     would return:
 
@@ -146,7 +155,7 @@ Subroutines/Methods
     elements, then the element is set to "input" and the mapped value used
     as the type attribute in the call to "generate_tag". For example;
 
-       $htag->textfield( { default => q(default value), name => q(my_field) } );
+       $my_obj->textfield( { default => q(default value), name => q(my_field) } );
 
     would return
 
@@ -155,9 +164,11 @@ Subroutines/Methods
     The list of input elements contains; button, checkbox, hidden,
     image_button, password_field, radio_button, submit, and textfield
 
+    Carp and return "undef" if the element does not exist in isKnown
+
   DESTROY
     Implement the "DESTROY" method so that the "AUTOLOAD" method doesn't get
-    called instead. Re-dispatches the call upstream
+    called instead
 
   _arg_list
     Returns a hash ref containing the passed parameter list. Enables methods
@@ -169,7 +180,7 @@ Subroutines/Methods
     Simplistic merging of two hashes
 
 Diagnostics
-    "carp" in Carp is called to issue a warning about undefined elements
+    Carp is called to issue a warning about undefined elements
 
 Dependencies
     Class::Accessor::Fast
@@ -187,8 +198,11 @@ Bugs and Limitations
 Author
     Peter Flanigan, "<Support at RoxSoft.co.uk>"
 
+Acknowledgements
+    Larry Wall - For the Perl programming language
+
 License and Copyright
-    Copyright (c) 2008 Peter Flanigan. All rights reserved.
+    Copyright (c) 2011 Peter Flanigan. All rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself. See perlartistic.

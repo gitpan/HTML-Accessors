@@ -1,8 +1,10 @@
 Build.PL
 Changes
+inc/Bob.pm
 lib/HTML/Accessors.pm
 LICENSE
 MANIFEST			This list of files
+META.json
 META.yml
 README
 t/01always_pass.t
