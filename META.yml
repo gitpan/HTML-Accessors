@@ -8,7 +8,7 @@ configure_requires:
   Module::Build: 0.32
   version: 0.74
 dynamic_config: 1
-generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.110580'
+generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.110930'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -22,7 +22,7 @@ no_index:
 provides:
   HTML::Accessors:
     file: lib/HTML/Accessors.pm
-    version: v0.4.104
+    version: v0.5.105
 requires:
   Class::Accessor::Fast: 0.31
   HTML::GenerateUtil: 1.08
@@ -34,4 +34,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=HTML-Accessors
   homepage: http://www.roxsoft.co.uk
   license: http://dev.perl.org/licenses/
-version: 0.4.104
+version: 0.5.105
