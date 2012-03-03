@@ -1,10 +1,10 @@
-# @(#)$Id: Accessors.pm 105 2011-06-26 19:23:44Z pjf $
+# @(#)$Id: Accessors.pm 113 2012-03-03 16:12:52Z pjf $
 
 package HTML::Accessors;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.5.%d', q$Rev: 105 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 113 $ =~ /\d+/gmx );
 use parent qw(Class::Accessor::Fast);
 
 use Carp;
@@ -40,14 +40,17 @@ sub is_xml {
 sub popup_menu {
    my ($self, @rest) = @_; my $options; $rest[ 0 ] ||= $NUL;
 
-   my $args   = _arg_list( @rest );
-   my $def    = $args->{default} || $NUL; delete $args->{default};
-   my $labels = $args->{labels}  || {};   delete $args->{labels };
-   my $values = $args->{values}  || [];   delete $args->{values };
+   my $args    = _arg_list( @rest );
+   my $classes = $args->{classes} || {};   delete $args->{classes};
+   my $def     = $args->{default} || $NUL; delete $args->{default};
+   my $labels  = $args->{labels } || {};   delete $args->{labels };
+   my $values  = $args->{values } || [];   delete $args->{values };
 
    for my $val (grep { defined } @{ $values }) {
       my $opt_attr = $val eq $def
                    ? { selected => $self->is_xml ? q(selected) : undef } : {};
+
+      exists $classes->{ $val } and $opt_attr->{class} = $classes->{ $val };
 
       if (exists $labels->{ $val }) {
          $opt_attr->{value} = $val; $val = $labels->{ $val };
@@ -89,7 +92,7 @@ sub radio_group {
       (exists $labels->{ $val } and not defined $labels->{ $val })
          or $html .= generate_tag( q(label),
                                    { class => $label_class },
-                                   "\n".($labels->{ $val } || $val),
+                                   ($labels->{ $val } || $val),
                                    GT_ADDNEWLINE );
       $cols and $i % $cols == 0
          and $html .= generate_tag( q(br), undef, undef, $mode );
@@ -162,7 +165,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.5.$Rev: 105 $
+0.6.$Rev: 113 $
 
 =head1 Synopsis
 
@@ -226,6 +229,11 @@ Returns the C<< <select> >> element. The first option passed to
 C<popup_menu> is either a hash ref or a list of key/value pairs. The keys are:
 
 =over 3
+
+=item B<classes>
+
+A hash ref keyed by the I<values> attribute. It lets you to set the I<class>
+attribute of each C<< <option> >> element
 
 =item B<default>
 
@@ -431,3 +439,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # mode: perl
 # tab-width: 3
 # End:
+

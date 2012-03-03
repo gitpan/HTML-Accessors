@@ -1,5 +1,10 @@
 Revision history for HTML::Accessors
 
+0.6.113  2012-03-03
+	 - Turned CPAN testing on for shits and giggles
+         - Added classes hash to popupMenu
+         - Updated inc::Bob
+
 0.5.105  2011-06-26
          - Radio groups. If the label exists but is undef skip the label
 

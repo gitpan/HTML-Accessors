@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.5.$Rev: 105 $
+    0.6.$Rev: 113 $
 
 Synopsis
        use HTML::Accessors;
@@ -50,6 +50,10 @@ Subroutines/Methods
 
     Returns the "<select>" element. The first option passed to "popup_menu"
     is either a hash ref or a list of key/value pairs. The keys are:
+
+    classes
+       A hash ref keyed by the *values* attribute. It lets you to set the
+       *class* attribute of each "<option>" element
 
     default
        Determines which of the values will be selected by default
