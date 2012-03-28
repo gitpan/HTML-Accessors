@@ -22,16 +22,16 @@ no_index:
 provides:
   HTML::Accessors:
     file: lib/HTML/Accessors.pm
-    version: v0.6.113
+    version: v0.6.117
 requires:
   Class::Accessor::Fast: 0.31
   HTML::GenerateUtil: 1.08
   HTML::Tagset: 3.10
   parent: 0.221
-  perl: 5.008
+  perl: 5.010
   version: 0.74
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=HTML-Accessors
   homepage: http://www.roxsoft.co.uk
   license: http://dev.perl.org/licenses/
-version: 0.6.113
+version: 0.6.117

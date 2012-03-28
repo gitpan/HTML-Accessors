@@ -1,6 +1,7 @@
 Build.PL
 Changes
 inc/Bob.pm
+inc/CPANTesting.pm
 lib/HTML/Accessors.pm
 LICENSE
 MANIFEST			This list of files

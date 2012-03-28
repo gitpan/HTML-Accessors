@@ -1,10 +1,10 @@
-# @(#)$Id: Accessors.pm 113 2012-03-03 16:12:52Z pjf $
+# @(#)$Id: Accessors.pm 117 2012-03-28 23:34:33Z pjf $
 
 package HTML::Accessors;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 113 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 117 $ =~ /\d+/gmx );
 use parent qw(Class::Accessor::Fast);
 
 use Carp;
@@ -165,7 +165,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.6.$Rev: 113 $
+0.6.$Rev: 117 $
 
 =head1 Synopsis
 
@@ -424,7 +424,7 @@ Larry Wall - For the Perl programming language
 
 =head1 License and Copyright
 
-Copyright (c) 2011 Peter Flanigan. All rights reserved.
+Copyright (c) 2012 Peter Flanigan. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. See L<perlartistic>.
