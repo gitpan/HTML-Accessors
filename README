@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    0.6.$Rev: 117 $
+    0.7.$Rev: 122 $
 
 Synopsis
        use HTML::Accessors;
@@ -188,7 +188,6 @@ Diagnostics
 
 Dependencies
     Class::Accessor::Fast
-    Class::C3
     HTML::GenerateUtil
     HTML::Tagset
 
