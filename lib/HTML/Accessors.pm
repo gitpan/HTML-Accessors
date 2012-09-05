@@ -1,10 +1,10 @@
-# @(#)$Id: Accessors.pm 123 2012-05-07 16:55:44Z pjf $
+# @(#)$Id: Accessors.pm 124 2012-09-05 14:54:28Z pjf $
 
 package HTML::Accessors;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 123 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 124 $ =~ /\d+/gmx );
 use parent qw(Class::Accessor::Fast);
 
 use Carp;
@@ -165,7 +165,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.7.$Rev: 123 $
+0.7.$Rev: 124 $
 
 =head1 Synopsis
 
@@ -192,7 +192,7 @@ The constructor defines accessors and mutators for one attribute:
 
 =over 3
 
-=item B<content_type>
+=item C<content_type>
 
 Defaults to I<application/xhtml+xml> which causes the generated tags
 to conform to the XHTML standard. Setting it to I<text/html> will
@@ -230,22 +230,22 @@ C<popup_menu> is either a hash ref or a list of key/value pairs. The keys are:
 
 =over 3
 
-=item B<classes>
+=item C<classes>
 
 A hash ref keyed by the I<values> attribute. It lets you to set the I<class>
 attribute of each C<< <option> >> element
 
-=item B<default>
+=item C<default>
 
 Determines which of the values will be selected by default
 
-=item B<labels>
+=item C<labels>
 
 Display these labels in place of the values (but return the value
 of the selected label). This is a hash ref with a key for each
 element in the C<values> array
 
-=item B<values>
+=item C<values>
 
 The key references an array ref whose values are used as the list of
 options returned in the body of the C<< <select> >> element
@@ -274,34 +274,34 @@ ref or a list of key/value pairs. The keys are:
 
 =over 3
 
-=item B<columns>
+=item C<columns>
 
 Integer number of columns to display the generated buttons in. If
 zero then a list of radio buttons without breaks is generated
 
-=item B<default>
+=item C<default>
 
 Determines which of the radio box will be selected by default
 
-=item B<label_class>
+=item C<label_class>
 
 Class of the labels generated for each button
 
-=item B<labels>
+=item C<labels>
 
 Display these labels next to each button. This is a hash ref with a
 key for each element in the C<values> array
 
-=item B<name>
+=item C<name>
 
 The form name of the generated buttons
 
-=item B<onchange>
+=item C<onchange>
 
-An optional Javascript reference. The JS will be executed each time
+An optional JavaScript reference. The JavaScript will be executed each time
 a different radio button is selected
 
-=item B<values>
+=item C<values>
 
 The key references an array ref whose values are returned by the
 radio buttons
@@ -367,8 +367,8 @@ would return
 The list of input elements contains; button, checkbox, hidden,
 image_button, password_field, radio_button, submit, and textfield
 
-Carp and return C<undef> if the element does not exist in
-L<isKnown|HTML::Tagset/isKnown>
+Carp and return C<undef> if the element does not exist in list of known
+L<elements|HTML::Tagset/isKnown>
 
 =head2 DESTROY
 
