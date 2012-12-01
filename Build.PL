@@ -1,9 +1,9 @@
-# @(#)$Id: Build.PL 122 2012-04-18 09:00:44Z pjf $
+# @(#)$Id: Build.PL 125 2012-12-01 13:40:18Z pjf $
 
 use strict;
 use warnings;
 use inc::Bob; # Module::Build subclass
-use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 122 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 125 $ =~ /\d+/gmx );
 
 Bob->new( {
    module     => q(HTML::Accessors),
@@ -21,6 +21,8 @@ Bob->new( {
 } )->create_build_script; # Goal!
 
 # Local Variables:
+# eval: (load-project-state "html-accessors")
 # mode: perl
+# tab-title: Accessors
 # tab-width: 3
 # End:

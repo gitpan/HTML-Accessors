@@ -1,10 +1,10 @@
-# @(#)$Id: Accessors.pm 124 2012-09-05 14:54:28Z pjf $
+# @(#)$Id: Accessors.pm 125 2012-12-01 13:40:18Z pjf $
 
 package HTML::Accessors;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 124 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 125 $ =~ /\d+/gmx );
 use parent qw(Class::Accessor::Fast);
 
 use Carp;
@@ -165,7 +165,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.7.$Rev: 124 $
+0.7.$Rev: 125 $
 
 =head1 Synopsis
 
@@ -437,4 +437,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # mode: perl
 # tab-width: 3
 # End:
-
