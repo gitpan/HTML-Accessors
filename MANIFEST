@@ -1,17 +1,14 @@
 Build.PL
 Changes
-inc/Bob.pm
-inc/CPANTesting.pm
-inc/SubClass.pm
-lib/HTML/Accessors.pm
 LICENSE
-MANIFEST			This list of files
+MANIFEST
 META.json
 META.yml
 README
+SIGNATURE
+lib/HTML/Accessors.pm
 t/01always_pass.t
 t/02pod.t
 t/03podcoverage.t
 t/07podspelling.t
 t/10base.t
-SIGNATURE    Added here by Module::Build

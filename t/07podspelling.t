@@ -1,8 +1,8 @@
-# @(#)$Id: 07podspelling.t 124 2012-09-05 14:54:28Z pjf $
+# @(#)Ident: 07podspelling.t 2013-05-16 20:48 pjf ;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 124 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.9.%d', q$Rev: 1 $ =~ /\d+/gmx );
 use File::Spec::Functions qw(catdir catfile updir);
 use FindBin qw( $Bin );
 use lib catdir( $Bin, updir, q(lib) );
@@ -11,8 +11,8 @@ use English qw(-no_match_vars);
 use Test::More;
 
 BEGIN {
-   ! -e catfile( $Bin, updir, q(MANIFEST.SKIP) )
-      and plan skip_all => 'POD spelling test only for developers';
+   $ENV{AUTHOR_TESTING}
+      or plan skip_all => 'POD spelling test only for developers';
 }
 
 eval "use Test::Spelling";
@@ -40,6 +40,7 @@ done_testing();
 
 __DATA__
 flanigan
+peter
 api
 checkbox
 javascript

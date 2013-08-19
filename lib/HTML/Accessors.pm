@@ -1,14 +1,15 @@
-# @(#)$Id: Accessors.pm 125 2012-12-01 13:40:18Z pjf $
+# @(#)$Ident: Accessors.pm 2013-08-15 18:53 pjf ;
 
 package HTML::Accessors;
 
+use 5.01;
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 125 $ =~ /\d+/gmx );
-use parent qw(Class::Accessor::Fast);
+use version; our $VERSION = qv( sprintf '0.9.%d', q$Rev: 1 $ =~ /\d+/gmx );
+use parent qw( Class::Accessor::Fast );
 
 use Carp;
-use HTML::GenerateUtil qw(generate_tag :consts);
+use HTML::GenerateUtil qw( generate_tag :consts );
 use HTML::Tagset;
 
 my $ATTRS = { content_type   => q(application/xhtml+xml) };
@@ -165,7 +166,7 @@ HTML::Accessors - Generate HTML elements
 
 =head1 Version
 
-0.7.$Rev: 125 $
+Describes version v0.9.$Rev: 1 $ of L<HTML::Accessors>
 
 =head1 Synopsis
 
@@ -414,7 +415,7 @@ Patches are welcome
 
 =head1 Author
 
-Peter Flanigan, C<< <Support at RoxSoft.co.uk> >>
+Peter Flanigan, C<< <pjfl@cpan.org> >>
 
 =head1 Acknowledgements
 
@@ -422,7 +423,7 @@ Larry Wall - For the Perl programming language
 
 =head1 License and Copyright
 
-Copyright (c) 2012 Peter Flanigan. All rights reserved.
+Copyright (c) 2013 Peter Flanigan. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. See L<perlartistic>.

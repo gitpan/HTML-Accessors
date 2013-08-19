@@ -1,24 +1,27 @@
-# @(#)$Id: 10base.t 125 2012-12-01 13:40:18Z pjf $
+# @(#)$Ident: 10base.t 2013-08-19 16:39 pjf ;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 125 $ =~ /\d+/gmx );
-use File::Spec::Functions;
-use FindBin qw( $Bin );
-use lib catdir( $Bin, updir, q(lib) );
+use version; our $VERSION = qv( sprintf '0.9.%d', q$Rev: 2 $ =~ /\d+/gmx );
+use File::Spec::Functions   qw( catdir updir );
+use FindBin                 qw( $Bin );
+use lib                 catdir( $Bin, updir, 'lib' );
 
-use English qw( -no_match_vars );
 use Module::Build;
 use Test::More;
 
-BEGIN {
-   my $current = eval { Module::Build->current };
+my $notes = {}; my $perl_ver;
 
-   $current and $current->notes->{stop_tests}
-            and plan skip_all => $current->notes->{stop_tests};
+BEGIN {
+   my $builder = eval { Module::Build->current };
+      $builder and $notes = $builder->notes;
+      $perl_ver = $notes->{min_perl_version} || 5.008;
 }
 
-use_ok q(HTML::Accessors);
+use Test::Requires "${perl_ver}";
+use English qw( -no_match_vars );
+
+use_ok 'HTML::Accessors';
 
 my $hacc = HTML::Accessors->new();
 

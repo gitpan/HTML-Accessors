@@ -1,10 +1,10 @@
 {
    "abstract" : "Generate HTML elements",
    "author" : [
-      "Peter Flanigan, C<< <Support at RoxSoft.co.uk> >>"
+      "Peter Flanigan <pjfl@cpan.org>"
    ],
-   "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112621",
+   "dynamic_config" : "1",
+   "generated_by" : "Dist::Zilla version 4.300033, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -17,47 +17,51 @@
       "directory" : [
          "examples",
          "inc",
+         "share",
          "t"
       ]
    },
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::More" : "0.74"
+            "Module::Build" : "0.4004",
+            "Test::Requires" : "0.06",
+            "version" : "0.88"
          }
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.32",
-            "version" : "0.74"
+            "Module::Build" : "0.4004",
+            "version" : "0.88"
          }
       },
       "runtime" : {
          "requires" : {
-            "Class::Accessor::Fast" : "0.31",
-            "HTML::GenerateUtil" : "1.08",
-            "HTML::Tagset" : "3.10",
-            "parent" : "0.221",
-            "perl" : "5.010",
-            "version" : "0.74"
+            "Class::Accessor" : "0.34",
+            "HTML::GenerateUtil" : "1.10",
+            "HTML::Tagset" : "3.20",
+            "parent" : "0.224",
+            "perl" : "5.01"
          }
       }
    },
    "provides" : {
       "HTML::Accessors" : {
          "file" : "lib/HTML/Accessors.pm",
-         "version" : "v0.7.125"
+         "version" : "v0.9.1"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
+         "mailto" : "bug-HTML-Accessors@rt.cpan.org",
          "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=HTML-Accessors"
       },
-      "homepage" : "http://www.roxsoft.co.uk",
+      "homepage" : "https://metacpan.org/author/PJFL",
       "license" : [
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.7.125"
+   "version" : "0.9.1"
 }
+
