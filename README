@@ -2,7 +2,7 @@ Name
     HTML::Accessors - Generate HTML elements
 
 Version
-    Describes version v0.9.$Rev: 1 $ of HTML::Accessors
+    Describes version v0.10.$Rev: 1 $ of HTML::Accessors
 
 Synopsis
        use HTML::Accessors;
@@ -33,6 +33,11 @@ Subroutines/Methods
        my $my_obj = HTML::Accessors->new( content_type => q(application/xhtml+xml) );
 
     Uses "_arg_list" to process the passed options
+
+  content_type
+       $content_type = $self->content_type( $new_type );
+
+    Accessor / mutator for the "content_type" attribute
 
   escape_html
        my $escaped_html = $my_obj->escape_html( $unescaped_html );
