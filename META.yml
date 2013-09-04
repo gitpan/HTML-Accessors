@@ -25,7 +25,7 @@ no_index:
 provides:
   HTML::Accessors:
     file: lib/HTML/Accessors.pm
-    version: v0.10.1
+    version: v0.11.1
 requires:
   HTML::GenerateUtil: 1.10
   HTML::Tagset: 3.20
@@ -34,4 +34,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=HTML-Accessors
   homepage: https://metacpan.org/author/PJFL
   license: http://dev.perl.org/licenses/
-version: 0.10.1
+version: 0.11.1
