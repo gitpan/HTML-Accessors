@@ -1,20 +1,20 @@
 ---
 abstract: 'Generate HTML elements'
 author:
-  - 'Peter Flanigan <pjfl@cpan.org>'
+  - 'Peter Flanigan, C<< <pjfl@cpan.org> >>'
 build_requires:
-  Module::Build: 0.4004
-  Test::Requires: 0.06
-  version: 0.88
+  Module::Build: '0.4004'
+  Test::Requires: '0.06'
+  version: '0.88'
 configure_requires:
-  Module::Build: 0.4004
-  version: 0.88
+  Module::Build: '0.4004'
+  version: '0.88'
 dynamic_config: 1
-generated_by: 'Dist::Zilla version 4.300033, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: HTML-Accessors
 no_index:
   directory:
@@ -25,13 +25,13 @@ no_index:
 provides:
   HTML::Accessors:
     file: lib/HTML/Accessors.pm
-    version: v0.11.1
+    version: v0.12.1
 requires:
-  HTML::GenerateUtil: 1.10
-  HTML::Tagset: 3.20
-  perl: 5.01
+  HTML::GenerateUtil: '1.10'
+  HTML::Tagset: '3.20'
+  perl: '5.01'
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=HTML-Accessors
   homepage: https://metacpan.org/author/PJFL
   license: http://dev.perl.org/licenses/
-version: 0.11.1
+version: 0.12.1
